@@ -225,6 +225,9 @@ def train_model(config):
     model = get_model(
         config, tokenizer_src.get_vocab_size(), tokenizer_tgt.get_vocab_size()
     ).to(device)
+    
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"Total parameters: {total_params:,}")
     # Tensorboard
     writer = SummaryWriter(config["experiment_name"])
 

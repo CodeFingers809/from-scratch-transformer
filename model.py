@@ -96,6 +96,7 @@ class MultiHeadAttentionBlock(nn.Module):
 
     @staticmethod
     def attention(query, key, value, mask, dropout):
+        
         d_k = query.shape[-1]
 
         attention_scores = (query @ key.transpose(-2, -1)) / math.sqrt(d_k)
@@ -197,7 +198,7 @@ class DecoderBlock(nn.Module):
         )
         x = self.residual_connections[1](
             x,
-            lambda x: self.self_attention_block(
+            lambda x: self.cross_attention_block(
                 x, encoder_output, encoder_output, src_mask
             ),
         )
